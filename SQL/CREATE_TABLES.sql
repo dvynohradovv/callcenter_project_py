@@ -43,9 +43,9 @@ CREATE TABLE us_city (
     UNIQUE (title, US_state_id)
 );
 
-DROP TABLE IF EXISTS us_adress CASCADE;
+DROP TABLE IF EXISTS us_address CASCADE;
 
-CREATE TABLE us_adress (
+CREATE TABLE us_address (
     id BIGSERIAL PRIMARY KEY,
     us_city_id BIGINT NOT NULL,
     street VARCHAR(30) NULL,
@@ -59,10 +59,10 @@ DROP TABLE IF EXISTS office CASCADE;
 
 CREATE TABLE office (
     id BIGSERIAL PRIMARY KEY,
-    us_adress_id BIGINT NOT NULL,
+    us_address_id BIGINT NOT NULL,
     title VARCHAR(30),
     flat VARCHAR(15),
-    UNIQUE(us_adress_id, title, flat)
+    UNIQUE(us_address_id, title, flat)
 );
 
 DROP TABLE IF EXISTS software CASCADE;
@@ -169,5 +169,5 @@ CREATE TABLE call_log (
     response RESPONSE NOT NULL,
     paid REAL CHECK(paid > 0.0) NOT NULL,
     us_city_id BIGINT NULL,
-    additional_adress VARCHAR(50) NULL
+    additional_address VARCHAR(50) NULL
 );

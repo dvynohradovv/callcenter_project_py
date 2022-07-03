@@ -4,14 +4,14 @@ ADD
     CONSTRAINT fk_us_city_us_state FOREIGN KEY (us_state_id) REFERENCES us_state (id) ON UPDATE CASCADE ON DELETE CASCADE;
 
 ALTER TABLE
-    us_adress
+    us_address
 ADD
-    CONSTRAINT fk_us_adress_us_city FOREIGN KEY (us_city_id) REFERENCES us_city (id) ON UPDATE CASCADE ON DELETE CASCADE;
+    CONSTRAINT fk_us_address_us_city FOREIGN KEY (us_city_id) REFERENCES us_city (id) ON UPDATE CASCADE ON DELETE CASCADE;
 
 ALTER TABLE
     office
 ADD
-    CONSTRAINT fk_office_us_adress FOREIGN KEY (us_adress_id) REFERENCES us_adress (id) ON UPDATE CASCADE ON DELETE CASCADE;
+    CONSTRAINT fk_office_us_address FOREIGN KEY (us_address_id) REFERENCES us_address (id) ON UPDATE CASCADE ON DELETE CASCADE;
 
 ALTER TABLE
     software_version
