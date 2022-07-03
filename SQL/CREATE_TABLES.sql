@@ -167,7 +167,7 @@ CREATE TABLE call_log (
     operator_message TEXT NULL,
     disconnect_initiator DISCONNECT_INITIATOR NOT NULL,
     response RESPONSE NOT NULL,
-    paid money CHECK(paid > 0) NOT NULL,
+    paid REAL CHECK(paid > 0.0) NOT NULL,
     us_city_id BIGINT NULL,
     additional_adress VARCHAR(50) NULL
 );
