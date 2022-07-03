@@ -1,3 +1,4 @@
 # callcenter_project
 
-Course work
+My term paper. "Call Center" Python Django + RAW PostgreSQL 
+# Odesa Mechnikov National University # ОНУ им. Мечникова
