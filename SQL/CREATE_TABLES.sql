@@ -48,9 +48,9 @@ DROP TABLE IF EXISTS us_address CASCADE;
 CREATE TABLE us_address (
     id BIGSERIAL PRIMARY KEY,
     us_city_id BIGINT NOT NULL,
-    street VARCHAR(30) NULL,
+    street VARCHAR(100) NULL,
     house VARCHAR(15) NULL,
-    additional_info VARCHAR(100) NULL,
+    additional_info TEXT NULL,
     UNIQUE(us_city_id, street, house)
 );
 
