@@ -1,0 +1,10 @@
+insert into office (id, us_address_id, title, flat) values (1, 947, 'Alfa', '96');
+insert into office (id, us_address_id, title, flat) values (2, 80, 'November', '89');
+insert into office (id, us_address_id, title, flat) values (3, 443, 'Papa', '55');
+insert into office (id, us_address_id, title, flat) values (4, 525, 'Oscar', '00');
+insert into office (id, us_address_id, title, flat) values (5, 9, 'Charlie', '22');
+insert into office (id, us_address_id, title, flat) values (6, 143, 'November', '51');
+insert into office (id, us_address_id, title, flat) values (7, 234, 'Delta', '55');
+insert into office (id, us_address_id, title, flat) values (8, 683, 'Tango', '76');
+insert into office (id, us_address_id, title, flat) values (9, 116, 'Kilo', '25');
+insert into office (id, us_address_id, title, flat) values (10, 17, 'Romeo', '77');
