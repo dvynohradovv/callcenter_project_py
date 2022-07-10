@@ -101,7 +101,7 @@ CREATE TABLE tenant_company (
     isdisabled BOOLEAN DEFAULT false NOT NULL,
     title VARCHAR(50) NOT NULL,
     category BUSINESS_CATEGORY DEFAULT 'Unknown' NOT NULL,
-    price_per_operator money NOT NULL,
+    price_per_operator REAL CHECK(paid > 0.0) NOT NULL,
     UNIQUE(title)
 );
 
@@ -111,7 +111,7 @@ CREATE TABLE tenant_company_phone_number (
     id BIGSERIAL PRIMARY KEY,
     phone_number VARCHAR(30) NOT NULL,
     tenant_company_id BIGINT,
-    description VARCHAR(150) NOT NULL,
+    description TEXT NOT NULL,
     UNIQUE(phone_number)
 );
 
