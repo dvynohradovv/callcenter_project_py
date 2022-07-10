@@ -16,7 +16,7 @@ insert into tenant_company (id, isdisabled, title, category, price_per_operator)
 insert into tenant_company (id, isdisabled, title, category, price_per_operator) values (16, false, 'Skipfire', 'Commerce', 200);
 insert into tenant_company (id, isdisabled, title, category, price_per_operator) values (17, false, 'Trudeo', 'Unknown', 400);
 insert into tenant_company (id, isdisabled, title, category, price_per_operator) values (18, false, 'Bluejam', 'Unknown', 400);
-insert into tenant_company (id, isdisabled, title, category, price_per_operator) values (19, false, 'Realpoint', 'Production', 100);
+insert into tenant_company (id, isdisabled, title, category, price_per_operator) values (19, false, 'EA', 'Production', 100);
 insert into tenant_company (id, isdisabled, title, category, price_per_operator) values (20, false, 'Bubbletube', 'Other', 300);
 insert into tenant_company (id, isdisabled, title, category, price_per_operator) values (21, false, 'Meeveo', 'Other', 400);
 insert into tenant_company (id, isdisabled, title, category, price_per_operator) values (22, false, 'Rhynoodle', 'Production', 100);
@@ -27,9 +27,9 @@ insert into tenant_company (id, isdisabled, title, category, price_per_operator)
 insert into tenant_company (id, isdisabled, title, category, price_per_operator) values (27, false, 'Realpoint', 'Production', 100);
 insert into tenant_company (id, isdisabled, title, category, price_per_operator) values (28, false, 'Oba', 'Other', 200);
 insert into tenant_company (id, isdisabled, title, category, price_per_operator) values (29, false, 'Edgepulse', 'Unknown', 100);
-insert into tenant_company (id, isdisabled, title, category, price_per_operator) values (30, false, 'Lazz', 'Other', 200);
+insert into tenant_company (id, isdisabled, title, category, price_per_operator) values (30, false, 'Valve', 'Other', 200);
 insert into tenant_company (id, isdisabled, title, category, price_per_operator) values (31, false, 'Feedfish', 'Unknown', 200);
-insert into tenant_company (id, isdisabled, title, category, price_per_operator) values (32, false, 'Innotype', 'Service industry', 200);
+insert into tenant_company (id, isdisabled, title, category, price_per_operator) values (32, false, 'Samsung', 'Service industry', 200);
 insert into tenant_company (id, isdisabled, title, category, price_per_operator) values (33, false, 'Ainyx', 'Production', 200);
 insert into tenant_company (id, isdisabled, title, category, price_per_operator) values (34, false, 'Blognation', 'Service industry', 300);
 insert into tenant_company (id, isdisabled, title, category, price_per_operator) values (35, false, 'Eidel', 'Commerce', 100);
@@ -42,7 +42,7 @@ insert into tenant_company (id, isdisabled, title, category, price_per_operator)
 insert into tenant_company (id, isdisabled, title, category, price_per_operator) values (42, false, 'Zava', 'Production', 300);
 insert into tenant_company (id, isdisabled, title, category, price_per_operator) values (43, false, 'Ozu', 'Commerce', 300);
 insert into tenant_company (id, isdisabled, title, category, price_per_operator) values (44, false, 'Aimbu', 'Commerce', 300);
-insert into tenant_company (id, isdisabled, title, category, price_per_operator) values (45, false, 'Browsezoom', 'Unknown', 200);
+insert into tenant_company (id, isdisabled, title, category, price_per_operator) values (45, false, 'Apple', 'Unknown', 200);
 insert into tenant_company (id, isdisabled, title, category, price_per_operator) values (46, false, 'Browsedrive', 'Production', 400);
 insert into tenant_company (id, isdisabled, title, category, price_per_operator) values (47, false, 'Skyba', 'Unknown', 100);
 insert into tenant_company (id, isdisabled, title, category, price_per_operator) values (48, false, 'Brainsphere', 'Production', 100);
@@ -66,7 +66,7 @@ insert into tenant_company (id, isdisabled, title, category, price_per_operator)
 insert into tenant_company (id, isdisabled, title, category, price_per_operator) values (66, false, 'Quimba', 'Other', 400);
 insert into tenant_company (id, isdisabled, title, category, price_per_operator) values (67, false, 'Topicshots', 'Commerce', 300);
 insert into tenant_company (id, isdisabled, title, category, price_per_operator) values (68, false, 'Voomm', 'Other', 200);
-insert into tenant_company (id, isdisabled, title, category, price_per_operator) values (69, false, 'Muxo', 'Commerce', 300);
+insert into tenant_company (id, isdisabled, title, category, price_per_operator) values (69, false, 'Facebook', 'Commerce', 300);
 insert into tenant_company (id, isdisabled, title, category, price_per_operator) values (70, false, 'Gabtune', 'Commerce', 100);
 insert into tenant_company (id, isdisabled, title, category, price_per_operator) values (71, false, 'Yambee', 'Other', 400);
 insert into tenant_company (id, isdisabled, title, category, price_per_operator) values (72, false, 'Muxo', 'Other', 100);
@@ -79,9 +79,9 @@ insert into tenant_company (id, isdisabled, title, category, price_per_operator)
 insert into tenant_company (id, isdisabled, title, category, price_per_operator) values (79, false, 'Meejo', 'Unknown', 300);
 insert into tenant_company (id, isdisabled, title, category, price_per_operator) values (80, false, 'Trilith', 'Service industry', 200);
 insert into tenant_company (id, isdisabled, title, category, price_per_operator) values (81, false, 'Zoonoodle', 'Other', 300);
-insert into tenant_company (id, isdisabled, title, category, price_per_operator) values (82, false, 'Skaboo', 'Other', 300);
+insert into tenant_company (id, isdisabled, title, category, price_per_operator) values (82, false, 'Ubisoft', 'Other', 300);
 insert into tenant_company (id, isdisabled, title, category, price_per_operator) values (83, false, 'Meembee', 'Other', 100);
-insert into tenant_company (id, isdisabled, title, category, price_per_operator) values (84, false, 'Photospace', 'Production', 100);
+insert into tenant_company (id, isdisabled, title, category, price_per_operator) values (84, false, 'Google', 'Production', 100);
 insert into tenant_company (id, isdisabled, title, category, price_per_operator) values (85, false, 'Photospace', 'Service industry', 400);
 insert into tenant_company (id, isdisabled, title, category, price_per_operator) values (86, false, 'Flashspan', 'Unknown', 200);
 insert into tenant_company (id, isdisabled, title, category, price_per_operator) values (87, false, 'Eare', 'Unknown', 200);
@@ -92,7 +92,7 @@ insert into tenant_company (id, isdisabled, title, category, price_per_operator)
 insert into tenant_company (id, isdisabled, title, category, price_per_operator) values (92, false, 'Ailane', 'Commerce', 100);
 insert into tenant_company (id, isdisabled, title, category, price_per_operator) values (93, false, 'Minyx', 'Other', 200);
 insert into tenant_company (id, isdisabled, title, category, price_per_operator) values (94, false, 'Thoughtstorm', 'Commerce', 200);
-insert into tenant_company (id, isdisabled, title, category, price_per_operator) values (95, false, 'Aimbu', 'Unknown', 400);
+insert into tenant_company (id, isdisabled, title, category, price_per_operator) values (95, false, 'Instagram', 'Unknown', 400);
 insert into tenant_company (id, isdisabled, title, category, price_per_operator) values (96, false, 'Eadel', 'Service industry', 100);
 insert into tenant_company (id, isdisabled, title, category, price_per_operator) values (97, false, 'Dynabox', 'Service industry', 200);
 insert into tenant_company (id, isdisabled, title, category, price_per_operator) values (98, false, 'Devify', 'Production', 300);
