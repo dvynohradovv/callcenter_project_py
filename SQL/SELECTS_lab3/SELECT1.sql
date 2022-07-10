@@ -23,8 +23,8 @@ FROM
     JOIN operator AS op ON op.id = op_wp.operator_id 
     -- Office Join
     JOIN office AS of ON of.id = wp.office_id 
-    -- US Adress Join
-    JOIN us_adress as us_a ON us_a.id = of.us_adress_id
+    -- US address Join
+    JOIN us_address as us_a ON us_a.id = of.us_address_id
     JOIN us_city as us_c ON us_c.id = us_a.us_city_id
     JOIN us_state as us_s ON us_s.id = us_c.us_state_id
 WHERE
