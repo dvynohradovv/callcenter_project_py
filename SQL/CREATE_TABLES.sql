@@ -98,9 +98,9 @@ DROP TABLE IF EXISTS tenant_company CASCADE;
 
 CREATE TABLE tenant_company (
     id BIGSERIAL PRIMARY KEY,
-    isdisabled BOOLEAN DEFAULT false NOT NULL,
+    isdisabled BOOLEAN DEFAULT false NULL,
     title VARCHAR(50) NOT NULL,
-    category BUSINESS_CATEGORY DEFAULT 'Unknown' NOT NULL,
+    category BUSINESS_CATEGORY DEFAULT 'Unknown' NULL,
     price_per_operator REAL CHECK(price_per_operator > 0.0) NOT NULL,
     UNIQUE(title)
 );
@@ -123,7 +123,7 @@ CREATE TABLE caller_person (
     first_name VARCHAR(30) NULL,
     last_name VARCHAR(30) NULL,
     phone_number VARCHAR(30) NOT NULL,
-    gender GENDER DEFAULT 'Unknown' NOT NULL,
+    gender GENDER DEFAULT 'Unknown' NULL,
     email VARCHAR(50) NULL,
     UNIQUE(phone_number, email)
 );
@@ -132,10 +132,10 @@ DROP TABLE IF EXISTS operator CASCADE;
 
 CREATE TABLE operator (
     id BIGSERIAL PRIMARY KEY,
-    isdisabled BOOLEAN DEFAULT false NOT NULL,
+    isdisabled BOOLEAN DEFAULT false NULL,
     first_name VARCHAR(30) NOT NULL,
     last_name VARCHAR(30) NULL,
-    gender GENDER DEFAULT 'Unknown' NOT NULL,
+    gender GENDER DEFAULT 'Unknown' NULL,
     email VARCHAR(50) NOT NULL,
     phone_number VARCHAR(30) NOT NULL,
     password VARCHAR(64) NOT NULL,
@@ -158,7 +158,7 @@ DROP TABLE IF EXISTS call_log CASCADE;
 
 CREATE TABLE call_log (
     id BIGSERIAL PRIMARY KEY,
-    start_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
+    start_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP NULL,
     duration smallint CHECK(duration > 0) NOT NULL,
     caller_person_id BIGINT NOT NULL,
     caller_person_message TEXT NULL,

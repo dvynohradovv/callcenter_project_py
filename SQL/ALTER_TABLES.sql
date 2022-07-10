@@ -44,7 +44,7 @@ ALTER TABLE
 ADD
     CONSTRAINT fk_operator_to_work_place_operator FOREIGN KEY (operator_id) REFERENCES operator (id) ON UPDATE CASCADE ON DELETE CASCADE,
 ADD
-    CONSTRAINT fk_operator_to_work_place_work_place FOREIGN KEY (work_place_id) REFERENCES tenant_company (id) ON UPDATE CASCADE ON DELETE CASCADE;
+    CONSTRAINT fk_operator_to_work_place_work_place FOREIGN KEY (work_place_id) REFERENCES work_place (id) ON UPDATE CASCADE ON DELETE CASCADE;
 
 ALTER TABLE
     call_log
