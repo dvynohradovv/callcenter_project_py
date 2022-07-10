@@ -141,7 +141,7 @@ CREATE TABLE operator (
     password VARCHAR(64) NOT NULL,
     tenant_company_id BIGINT NOT NULL,
     UNIQUE(phone_number),
-    UNIQUE(email)
+    UNIQUE(email)   
 );
 
 DROP TABLE IF EXISTS operator_to_work_place CASCADE;
