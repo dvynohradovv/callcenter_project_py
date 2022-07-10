@@ -101,7 +101,7 @@ CREATE TABLE tenant_company (
     isdisabled BOOLEAN DEFAULT false NOT NULL,
     title VARCHAR(50) NOT NULL,
     category BUSINESS_CATEGORY DEFAULT 'Unknown' NOT NULL,
-    price_per_operator REAL CHECK(paid > 0.0) NOT NULL,
+    price_per_operator REAL CHECK(price_per_operator > 0.0) NOT NULL,
     UNIQUE(title)
 );
 
