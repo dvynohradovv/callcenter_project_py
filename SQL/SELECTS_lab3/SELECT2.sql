@@ -14,7 +14,6 @@ SELECT
     cl.additional_address
 FROM
     call_log AS cl
-
 WHERE
     cl.start_time >= CURRENT_TIMESTAMP - interval '6 months'
     AND cl.start_time <= CURRENT_TIMESTAMP
