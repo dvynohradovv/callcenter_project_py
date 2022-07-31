@@ -23,4 +23,4 @@ FROM
     JOIN us_city AS us_c ON us_c.id = us_a.us_city_id
     JOIN us_state AS us_s ON us_s.id = us_c.us_state_id
 WHERE
-    us_s.id = 9;
+    us_s.id = 8;
