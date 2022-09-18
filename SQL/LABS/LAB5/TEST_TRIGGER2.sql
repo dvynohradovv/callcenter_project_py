@@ -1,0 +1,1 @@
+insert into operator_to_work_place (work_place_id, operator_id) values (1, 1);
