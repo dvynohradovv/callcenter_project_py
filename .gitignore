@@ -1,2 +1,11 @@
 .vscode/
 *.session.sql
+
+# Python
+__pycache__/
+
+# Env
+.env
+
+# DB
+*.sqlite3

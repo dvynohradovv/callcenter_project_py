@@ -5,6 +5,9 @@ name = "pypi"
 
 [packages]
 django = "*"
+django-crispy-forms = "*"
+sqlalchemy = "*"
+autopep8 = "*"
 
 [dev-packages]
 
