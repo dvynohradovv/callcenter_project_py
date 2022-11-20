@@ -135,8 +135,8 @@ class CallerPerson(models.Model):
 
 
 class User(AbstractUser):
-    type = models.PositiveSmallIntegerField(
-        choices=AccountType.choices, default=AccountType.Admin)
+    type = models.CharField(
+        max_length=100, choices=AccountType.choices, default=AccountType.Admin)
     isdisabled = models.BooleanField(default=False)
     email = models.EmailField(unique=True)
     gender = models.CharField(
