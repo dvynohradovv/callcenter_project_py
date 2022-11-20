@@ -17,7 +17,7 @@ from django.contrib import admin
 from django.urls import include, path
 from django.views.generic import TemplateView
 
-from call_center_project.views.workflow_view import WorkflowView
+from call_center_project.views.workflow import Workflow
 
 
 urlpatterns = [
@@ -25,7 +25,7 @@ urlpatterns = [
     path("accounts/", include("django.contrib.auth.urls"), name='accounts'),
     path("", TemplateView.as_view(
         template_name="call_center_project/main/index.html"), name='index'),
-    path("workflow", WorkflowView.as_view(), name='workflow'),
+    path("workflow", Workflow.as_view(), name='workflow'),
     path('workflow/tenant_company/',
          include("tenant_company.urls")),
     path('workflow/tenant_company_operator/',

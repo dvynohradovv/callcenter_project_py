@@ -9,3 +9,4 @@ __pycache__/
 
 # DB
 *.sqlite3
+*.DS_Store
