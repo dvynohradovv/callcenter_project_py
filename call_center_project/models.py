@@ -11,6 +11,7 @@ class GenderType(models.TextChoices):
 
 
 class AccountType(models.TextChoices):
+    Unactive = 'Unactive'
     Admin = 'Admin'
     Operator = 'Operator'
     TenantCompanyOwner = 'TenantCompanyOwner'
@@ -141,9 +142,10 @@ class User(AbstractUser):
     email = models.EmailField(unique=True)
     gender = models.CharField(
         max_length=100, choices=GenderType.choices, default=GenderType.Unknown)
-    phone_number = models.CharField(max_length=100, null=True, default=None)
+    phone_number = models.CharField(
+        max_length=100, null=True, blank=True)
     tenant_company = models.ForeignKey(
-        'call_center_project.TenantCompany', models.SET_NULL, related_name='users', null=True)
+        'call_center_project.TenantCompany', models.SET_NULL, related_name='users', null=True, blank=True)
 
 
 class OperatorToWorkPlace(models.Model):
