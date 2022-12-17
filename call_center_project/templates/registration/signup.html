@@ -1,0 +1,20 @@
+{% extends 'call_center_project/main/base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block title %}Home{% endblock %}
+{% block links %}
+<link href="{% static 'call_center_project/css/main/base.css' %}" rel="stylesheet">
+{% endblock %}
+{% block main %}
+<div class="container login-form text-center col-lg-5 mx-auto py-md-5">
+    <form data-bitwarden-watching="1" method="post">
+        {% csrf_token %}
+        <img class="mb-4" src="{% static 'call_center_project/images/logo.svg' %}" alt="" width="220" height="220" />
+        <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
+        {{ form|crispy }}
+        <div class="py-md-4">
+            <button class="w-100 btn btn-lg btn-primary" type="submit">Sign in</button>
+        </div>
+    </form>
+</div>
+{% endblock %}

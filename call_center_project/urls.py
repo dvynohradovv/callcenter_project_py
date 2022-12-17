@@ -17,17 +17,23 @@ from django.contrib import admin
 from django.urls import include, path
 from django.views.generic import TemplateView
 
-from call_center_project.views.workflow import Workflow
+from call_center_project.views.signup_view import SignUpView
+from call_center_project.views.workflow_unactive_view import WorkflowUnactiveView
+from call_center_project.views.workflow_view import WorkflowView
 
+app_name = 'call_center_project'
 
 urlpatterns = [
-    path('admin/', admin.site.urls, name='admin'),
-    path("accounts/", include("django.contrib.auth.urls"), name='accounts'),
-    path("", TemplateView.as_view(
-        template_name="call_center_project/main/index.html"), name='index'),
-    path("workflow", Workflow.as_view(), name='workflow'),
+    path('admin/', admin.site.urls),
+    path('accounts/', include('django.contrib.auth.urls'), name='accounts'),
+    path('accounts/signup/', SignUpView.as_view(), name='signup'),
+    path('', TemplateView.as_view(
+        template_name='call_center_project/main/index.html'), name='index'),
+    path('workflow', WorkflowView.as_view(), name='workflow'),
+    path('workflow/unactive', WorkflowUnactiveView.as_view(),
+         name='workflow_unactive'),
     path('workflow/tenant_company/',
-         include("tenant_company.urls")),
+         include('tenant_company.urls')),
     path('workflow/tenant_company_operator/',
-         include("tenant_company_operator.urls")),
+         include('tenant_company_operator.urls')),
 ]

@@ -14,7 +14,7 @@ class AccountType(models.TextChoices):
     Unactive = 'Unactive'
     Admin = 'Admin'
     Operator = 'Operator'
-    TenantCompanyOwner = 'TenantCompanyOwner'
+    TenantCompanyOwner = 'Tenant_Company_Owner'
 
 
 class CategoryType(models.TextChoices):
@@ -22,7 +22,7 @@ class CategoryType(models.TextChoices):
     Other = 'Other'
     Production = 'Production'
     Commerce = 'Commerce'
-    ServiceIndustry = 'ServiceIndustry'
+    ServiceIndustry = 'Service_Industry'
 
 
 class DisconnectInitiatorType(models.TextChoices):
@@ -33,7 +33,7 @@ class DisconnectInitiatorType(models.TextChoices):
 class ResponseType(models.TextChoices):
     Forbidden = 'Forbidden'
     BusyHere = 'BusyHere'
-    RequestTerminated = 'RequestTerminated'
+    RequestTerminated = 'Request_Terminated'
     OK = 'OK'
 
 
@@ -137,7 +137,7 @@ class CallerPerson(models.Model):
 
 class User(AbstractUser):
     type = models.CharField(
-        max_length=100, choices=AccountType.choices, default=AccountType.Admin)
+        max_length=100, choices=AccountType.choices, default=AccountType.Unactive)
     isdisabled = models.BooleanField(default=False)
     email = models.EmailField(unique=True)
     gender = models.CharField(
