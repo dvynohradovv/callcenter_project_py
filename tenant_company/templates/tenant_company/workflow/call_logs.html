@@ -1,0 +1,79 @@
+{% extends 'tenant_company/workflow/base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block title %}Home{% endblock %}
+{% block links %}
+<link href="{% static 'call_center_project/css/main/base.css' %}" rel="stylesheet">
+<link href="{% static 'call_center_project/css/workflow/base.css' %}" rel="stylesheet">
+{% endblock %}
+{% block main %}
+<div class="chartjs-size-monitor">
+    <div class="chartjs-size-monitor-expand">
+        <div class=""></div>
+    </div>
+    <div class="chartjs-size-monitor-shrink">
+        <div class=""></div>
+    </div>
+</div>
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h1 class="h2">Dashboard</h1>
+    <div class="btn-toolbar mb-2 mb-md-0">
+        <div class="btn-group me-2">
+            <button type="button" class="btn btn-sm btn-outline-secondary">Share</button>
+            <button type="button" class="btn btn-sm btn-outline-secondary">Export</button>
+        </div>
+        <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                class="feather feather-calendar" aria-hidden="true">
+                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                <line x1="16" y1="2" x2="16" y2="6"></line>
+                <line x1="8" y1="2" x2="8" y2="6"></line>
+                <line x1="3" y1="10" x2="21" y2="10"></line>
+            </svg>
+            This week
+        </button>
+
+    </div>
+</div>
+<h2>Section title</h2>
+<div class="table-responsive">
+    <table class="table table-striped table-sm">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Start time</th>
+                <th>Duration</th>
+                <th>Caller person</th>
+                <th>Caller person message</th>
+                <th>Tenant company phone number</th>
+                <th>Operator</th>
+                <th>Operator message</th>
+                <th>Disconnect initiator</th>
+                <th>Response</th>
+                <th>Paid</th>
+                <th>Address</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for call_log in data %}
+            <tr>
+                <td>call_log.id</td>
+                <td>call_log.start_time</td>
+                <td>call_log.duration</td>
+                <td>call_log.caller_person</td>
+                <td>call_log.caller_person_message</td>
+                <td>call_log.tenant_company_phone_number</td>
+                <td>call_log.operator</td>
+                <td>call_log.operator_message</td>
+                <td>call_log.disconnect_initiator</td>
+                <td>call_log.response</td>
+                <td>call_log.paid</td>
+                <td>call_log.address</td>
+            </tr>
+            {% endfor %}
+
+        </tbody>
+    </table>
+</div>
+{% endblock %}

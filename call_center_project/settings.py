@@ -85,10 +85,23 @@ WSGI_APPLICATION = 'call_center_project.wsgi.application'
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
 DATABASES = {
+
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+
+        'NAME': os.getenv('PG_DBNAME'),
+
+        'USER': os.getenv('PG_USER'),
+
+        'PASSWORD': os.getenv('PG_PASSWORD'),
+
+        'HOST': os.getenv('PG_HOST'),
+
+        'PORT': os.getenv('PG_PORT'),
+
     }
+
 }
 
 

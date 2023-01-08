@@ -10,7 +10,7 @@
 {% block nav_item %}
 <ul class="nav nav-pills flex-column">
     <li class="nav-item">
-        <a href="#" class="nav-link text-white{% if user.tenant_company %}{{ " a" }}{% endif %}" aria-current="page">
+        <a href="{% url 'tenant_company.home' %}" class="nav-link text-white{% if user.tenant_company %}{{ " a" }}{% endif %}" aria-current="page">
             <svg class="bi me-2" width="16" height="16">
                 <use xlink:href="#home"></use>
             </svg>
@@ -18,7 +18,7 @@
         </a>
     </li>
     <li class="nav-item">
-        <a href="#" class="nav-link text-white{% if user.tenant_company %}{{ " a" }}{% endif %}">
+        <a href="{% url 'tenant_company.call_logs' %}" class="nav-link text-white{% if user.tenant_company %}{{ " a" }}{% endif %}">
             <svg class="bi me-2" width="16" height="16">
                 <use xlink:href="#speedometer2"></use>
             </svg>
@@ -26,7 +26,7 @@
         </a>
     </li>
     <li class="nav-item">
-        <a href="#" class="nav-link text-white{% if user.tenant_company %}{{ " a" }}{% endif %}">
+        <a href="{% url 'tenant_company.operators' %}" class="nav-link text-white{% if user.tenant_company %}{{ " a" }}{% endif %}">
             <svg class="bi me-2" width="16" height="16">
                 <use xlink:href="#table"></use>
             </svg>
@@ -34,7 +34,7 @@
         </a>
     </li>
     <li class="nav-item">
-        <a href="#" class="nav-link text-white{% if user.tenant_company %}{{ " a" }}{% endif %}">
+        <a href="{% url 'tenant_company.work_places' %}" class="nav-link text-white{% if user.tenant_company %}{{ " a" }}{% endif %}">
             <svg class="bi me-2" width="16" height="16">
                 <use xlink:href="#grid"></use>
             </svg>
@@ -42,7 +42,7 @@
         </a>
     </li>
     <li class="nav-item">
-        <a href="#" class="nav-link text-white{% if user.tenant_company %}{{ " a" }}{% endif %}">
+        <a href="{% url 'tenant_company.phone_numbers' %}" class="nav-link text-white{% if user.tenant_company %}{{ " a" }}{% endif %}">
             <svg class="bi me-2" width="16" height="16">
                 <use xlink:href="#people-circle"></use>
             </svg>

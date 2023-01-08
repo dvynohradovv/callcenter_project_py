@@ -8,6 +8,7 @@ django = "*"
 django-crispy-forms = "*"
 sqlalchemy = "*"
 autopep8 = "*"
+psycopg2 = "*"
 
 [dev-packages]
 
