@@ -120,7 +120,7 @@ class TenantCompany(models.Model):
 
 
 class TenantCompanyPhoneNumber(models.Model):
-    phone_number = models.CharField(max_length=100, unique=True),
+    phone_number = models.CharField(max_length=100, unique=True, null=True)
     tenant_company = models.ForeignKey(
         'call_center_project.TenantCompany', models.CASCADE, related_name='tenant_company_phone_numbers')
     description = models.TextField(blank=True)

@@ -1,0 +1,10 @@
+insert into call_center_project_office (id, address_id, title) values (1, 1, 'India');
+insert into call_center_project_office (id, address_id, title) values (2, 2, 'X-ray');
+insert into call_center_project_office (id, address_id, title) values (3, 3, 'Juliett');
+insert into call_center_project_office (id, address_id, title) values (4, 4, 'November');
+insert into call_center_project_office (id, address_id, title) values (5, 5, 'Lima');
+insert into call_center_project_office (id, address_id, title) values (6, 6, 'X-ray');
+insert into call_center_project_office (id, address_id, title) values (7, 7, 'Charlie');
+insert into call_center_project_office (id, address_id, title) values (8, 8, 'Juliett');
+insert into call_center_project_office (id, address_id, title) values (9, 9, 'Romeo');
+insert into call_center_project_office (id, address_id, title) values (10, 10, 'Quebec');
