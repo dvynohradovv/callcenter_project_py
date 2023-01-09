@@ -1,0 +1,69 @@
+{% extends 'tenant_company/workflow/base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block title %}Home{% endblock %}
+{% block links %}
+<link href="{% static 'call_center_project/css/main/base.css' %}" rel="stylesheet">
+<link href="{% static 'call_center_project/css/workflow/base.css' %}" rel="stylesheet">
+{% endblock %}
+{% block main %}
+<div class="chartjs-size-monitor">
+    <div class="chartjs-size-monitor-expand">
+        <div class=""></div>
+    </div>
+    <div class="chartjs-size-monitor-shrink">
+        <div class=""></div>
+    </div>
+</div>
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h1 class="h2">Operators dashboard</h1>
+    <div class="btn-toolbar mb-2 mb-md-0">
+        <div class="btn-group me-2">
+            <button type="button" class="btn btn-sm btn-outline-secondary">Share</button>
+            <button type="button" class="btn btn-sm btn-outline-secondary">Export</button>
+        </div>
+        <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                class="feather feather-calendar" aria-hidden="true">
+                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                <line x1="16" y1="2" x2="16" y2="6"></line>
+                <line x1="8" y1="2" x2="8" y2="6"></line>
+                <line x1="3" y1="10" x2="21" y2="10"></line>
+            </svg>
+            This week
+        </button>
+
+    </div>
+</div>
+<h3>Current operators</h3>
+<div class="table-responsive">
+    <table class="table align-middle table-hover">
+        <thead class="table-dark">
+            <tr class="text-nowrap">
+                <th>#</th>
+                <th>Full-name</th>
+                <th>Username</th>
+                <th>Email</th>
+                <th>Gender</th>
+                <th>Phone number</th>
+                <th>Last login</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for operator in data %}
+            <tr>
+                <th class="table-dark" scope="row">{{operator.id}}</th>
+                <td>{{operator.first_name}} {{operator.last_name}}</td>
+                <td>{{operator.username}}</td>
+                <td>{{operator.email}}</td>
+                <td>{{operator.gender}}</td>
+                <td>{{operator.phone_number}}</td>
+                <td>{{operator.last_login}}</td>
+            </tr>
+            {% endfor %}
+
+        </tbody>
+    </table>
+</div>
+{% endblock %}
