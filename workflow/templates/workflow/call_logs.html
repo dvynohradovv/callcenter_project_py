@@ -1,10 +1,10 @@
-{% extends 'tenant_company/workflow/base.html' %}
+{% extends 'workflow/base.html' %}
 {% load static %}
 {% load crispy_forms_tags %}
 {% block title %}Home{% endblock %}
 {% block links %}
 <link href="{% static 'call_center_project/css/main/base.css' %}" rel="stylesheet">
-<link href="{% static 'call_center_project/css/workflow/base.css' %}" rel="stylesheet">
+<link href="{% static 'workflow/css/base.css' %}" rel="stylesheet">
 {% endblock %}
 {% block main %}
 <div class="chartjs-size-monitor">
@@ -16,7 +16,7 @@
     </div>
 </div>
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-    <h1 class="h2">Operators dashboard</h1>
+    <h1 class="h2">Call-logs dashboard</h1>
     <div class="btn-toolbar mb-2 mb-md-0">
         <div class="btn-group me-2">
             <button type="button" class="btn btn-sm btn-outline-secondary">Share</button>
@@ -36,30 +36,47 @@
 
     </div>
 </div>
-<h3>Current operators</h3>
+<h3>Current call-logs</h3>
 <div class="table-responsive">
     <table class="table align-middle table-hover">
         <thead class="table-dark">
             <tr class="text-nowrap">
                 <th>#</th>
-                <th>Full-name</th>
-                <th>Username</th>
-                <th>Email</th>
-                <th>Gender</th>
-                <th>Phone number</th>
-                <th>Last login</th>
+                <th>Start time</th>
+                <th>Duration</th>
+                <th>Caller person</th>
+                <th>Caller person message</th>
+                <th>Tenant company phone number</th>
+                <th>Operator</th>
+                <th>Operator message</th>
+                <th>Disconnect initiator</th>
+                <th>Response</th>
+                <th>Paid</th>
+                <th>Address</th>
             </tr>
         </thead>
         <tbody>
-            {% for operator in data %}
+            {% for call_log in data %}
             <tr>
-                <th class="table-dark" scope="row">{{operator.id}}</th>
-                <td>{{operator.first_name}} {{operator.last_name}}</td>
-                <td>{{operator.username}}</td>
-                <td>{{operator.email}}</td>
-                <td>{{operator.gender}}</td>
-                <td>{{operator.phone_number}}</td>
-                <td>{{operator.last_login}}</td>
+                <th class="table-dark" scope="row">{{call_log.id}}</th>
+                <td>{{call_log.start_time}}</td>
+                <td>{{call_log.duration}} seconds</td>
+                <td class="table-light">
+                    <p>
+                        {{call_log.caller_person.first_name}}
+                    </p>
+                    <p>
+                        {{call_log.caller_person.phone_number}}
+                    </p>
+                </td>
+                <td>{{call_log.caller_person_message}}</td>
+                <td class="table-light">{{call_log.tenant_company_phone_number.phone_number}}</td>
+                <td>{{call_log.operator.username}}</td>
+                <td>{{call_log.operator_message}}</td>
+                <td>{{call_log.disconnect_initiator}}</td>
+                <td>{{call_log.response}}</td>
+                <td>${{call_log.paid}} USD</td>
+                <td>{{call_log.address}}</td>
             </tr>
             {% endfor %}
 
