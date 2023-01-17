@@ -32,5 +32,5 @@ urlpatterns = [
         template_name='call_center_project/main/index.html'), name='index'),
 
     # Workflow
-    path('workflow', include('workflow.urls'))
+    path('workflow/', include('workflow.urls'))
 ]

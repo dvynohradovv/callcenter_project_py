@@ -61,14 +61,7 @@
                 <th class="table-dark" scope="row">{{call_log.id}}</th>
                 <td>{{call_log.start_time}}</td>
                 <td>{{call_log.duration}} seconds</td>
-                <td class="table-light">
-                    <p>
-                        {{call_log.caller_person.first_name}}
-                    </p>
-                    <p>
-                        {{call_log.caller_person.phone_number}}
-                    </p>
-                </td>
+                <td class="table-light">{{call_log.caller_person.phone_number}}</td>
                 <td>{{call_log.caller_person_message}}</td>
                 <td class="table-light">{{call_log.tenant_company_phone_number.phone_number}}</td>
                 <td>{{call_log.operator.username}}</td>

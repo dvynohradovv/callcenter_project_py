@@ -92,6 +92,8 @@ class WorkPlace(models.Model):
         'call_center_project.SoftwareVersion', models.SET_NULL, related_name='work_places', null=True, blank=True)
     tenant_company = models.ForeignKey(
         'call_center_project.TenantCompany', models.SET_NULL, related_name='work_places', null=True, blank=True)
+    operators = models.ManyToManyField(
+        'call_center_project.User', through='OperatorToWorkPlace')
 
     class Meta:
         constraints = [
@@ -150,9 +152,9 @@ class User(AbstractUser):
 
 class OperatorToWorkPlace(models.Model):
     operator = models.ForeignKey(
-        'call_center_project.User', models.CASCADE, related_name='work_places')
+        'call_center_project.User', models.CASCADE)
     work_place = models.ForeignKey(
-        'call_center_project.WorkPlace', models.CASCADE, related_name='operators')
+        'call_center_project.WorkPlace', models.CASCADE)
 
 
 class CallLog(models.Model):
