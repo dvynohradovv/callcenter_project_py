@@ -46,13 +46,13 @@
                 <th>Duration</th>
                 <th>Caller person</th>
                 <th>Caller person message</th>
-                <th>Tenant company phone number</th>
+                <th>Tenant Company</th>
                 <th>Operator</th>
                 <th>Operator message</th>
-                <th>Disconnect initiator</th>
-                <th>Response</th>
+                <th class="text-wrap">Disconnect initiator / Response</th>
                 <th>Paid</th>
                 <th>Address</th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
@@ -61,15 +61,18 @@
                 <th class="table-dark" scope="row">{{call_log.id}}</th>
                 <td>{{call_log.start_time}}</td>
                 <td>{{call_log.duration}} seconds</td>
-                <td class="table-light">{{call_log.caller_person.phone_number}}</td>
+                <td class="table-light">{{call_log.caller_person}}</td>
                 <td>{{call_log.caller_person_message}}</td>
-                <td class="table-light">{{call_log.tenant_company_phone_number.phone_number}}</td>
-                <td>{{call_log.operator.username}}</td>
+                <td class="table-light">{{call_log.tenant_company_phone_number}}</td>
+                <td>{{call_log.operator}}</td>
                 <td>{{call_log.operator_message}}</td>
-                <td>{{call_log.disconnect_initiator}}</td>
-                <td>{{call_log.response}}</td>
+                <td>{{call_log.disconnect_initiator}} / {{call_log.response}}</td>
                 <td>${{call_log.paid}} USD</td>
                 <td>{{call_log.address}}</td>
+                <td>
+                    <a class="btn btn-outline-dark" href="{% url 'workflow.call_logs' %}/{{call_log.id}}"
+                        role="button">Edit</a>
+                </td>
             </tr>
             {% endfor %}
 

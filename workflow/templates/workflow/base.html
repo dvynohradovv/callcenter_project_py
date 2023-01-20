@@ -28,67 +28,53 @@
 </header>
 <div class="container-fluid">
     <div class="row">
-        <nav id='sidebarMenu' class="col-md-3 col-lg-2 d-md-block bg-dark sidebar collapse text-break">
+        <nav id='sidebarMenu' class="col-md-3 col-sm-1 col-lg-2 d-md-block bg-dark sidebar collapse text-break">
             <div class="position-sticky pt-3">
-                <a href="/" class="d-flex mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
-                    <svg class="bi me-2" width="40" height="32">
-                        <use xlink:href="#bootstrap"></use>
-                    </svg>
+                <a href="{% url 'workflow' %}"
+                    class="d-flex ps-5 mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
                     <span class="fs-4">Workflow</span>
                 </a>
                 <hr>
                 {% block nav_item %}
-                <ul class="nav nav-pills flex-column">
+                <ul class="nav nav-pills flex-column ps-3">
                     <li class="nav-item">
-                        <a href="{% url 'workflow.home' %}" class="nav-link text-white{% if user.tenant_company %}{{ "
-                            a" }}{% endif %}" aria-current="page">
-                            <svg class="bi me-2" width="16" height="16">
-                                <use xlink:href="#home"></use>
-                            </svg>
+                        <a href="{% url 'workflow.home' %}" class="nav-link text-white" aria-current="page">
+                            <i class="bi me-2 bi-house"></i>
                             Home
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="{% url 'workflow.call_logs' %}"
-                            class="nav-link text-white{% if user.tenant_company %}{{ " a" }}{% endif %}">
-                            <svg class="bi me-2" width="16" height="16">
-                                <use xlink:href="#speedometer2"></use>
-                            </svg>
+                        <a href="{% url 'workflow.call_logs' %}" class="nav-link text-white">
+                            <i class="bi me-2 bi-speedometer2"></i>
                             Call-logs
                         </a>
                     </li>
+
+                    {% if user.is_tenant_company_owner %}
                     <li class="nav-item">
-                        <a href="{% url 'workflow.operators' %}"
-                            class="nav-link text-white{% if user.tenant_company %}{{ " a" }}{% endif %}">
-                            <svg class="bi me-2" width="16" height="16">
-                                <use xlink:href="#table"></use>
-                            </svg>
+                        <a href="{% url 'workflow.operators' %}" class="nav-link text-white">
+                            <i class="bi me-2 bi-file-person"></i>
                             Operators
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="{% url 'workflow.work_places' %}"
-                            class="nav-link text-white{% if user.tenant_company %}{{ " a" }}{% endif %}">
-                            <svg class="bi me-2" width="16" height="16">
-                                <use xlink:href="#grid"></use>
-                            </svg>
+                        <a href="{% url 'workflow.work_places' %}" class="nav-link text-white">
+                            <i class="bi me-2 bi-pc-display"></i>
                             Work places
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="{% url 'workflow.phone_numbers' %}"
-                            class="nav-link text-white{% if user.tenant_company %}{{ " a" }}{% endif %}">
-                            <svg class="bi me-2" width="16" height="16">
-                                <use xlink:href="#people-circle"></use>
-                            </svg>
+                        <a href="{% url 'workflow.phone_numbers' %}" class="nav-link text-white">
+                            <i class="bi me-2 bi-telephone"></i>
                             Phone numbers
                         </a>
                     </li>
+                    {% endif %}
                 </ul>
                 {% endblock %}
                 {% block nav_user_dropdown %}
-                <div class="dropdown p-3">
-                    <a href="#" class="d-flex align-items-center text-white text-decoration-none" id="dropdownUser"
+                <div class="dropdown">
+                    <a href="#" class="d-flex align-items-center text-white text-decoration-none p-3" id="dropdownUser"
                         data-bs-toggle="dropdown" aria-expanded="false">
                         <img src="https://github.com/mdo.png" alt="" width="32" height="32" class="rounded-circle me-2">
                         <strong>{{ user.username }}</strong>

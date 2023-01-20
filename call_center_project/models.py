@@ -47,7 +47,7 @@ class Address(models.Model):
     additional_info = models.CharField(max_length=200, blank=True)
 
     def __str__(self):
-        return f"{self.id}| {self.country}"
+        return f"{self.street}, {self.city}, {self.state} {self.zip_code}, {self.country}"
 
 
 class Office(models.Model):
@@ -64,9 +64,15 @@ class Office(models.Model):
                 name='unique_office')
         ]
 
+    def __str__(self) -> str:
+        return f'{self.title} | {self.address}'
+
 
 class Software(models.Model):
     title = models.CharField(max_length=100, unique=True)
+
+    def __str__(self) -> str:
+        return f'{self.title}'
 
 
 class SoftwareVersion(models.Model):
@@ -82,6 +88,9 @@ class SoftwareVersion(models.Model):
                 ],
                 name='unique_software_version')
         ]
+
+    def __str__(self) -> str:
+        return f'{self.version} | {self.software}'
 
 
 class WorkPlace(models.Model):
@@ -104,6 +113,9 @@ class WorkPlace(models.Model):
                 name='unique_work_place')
         ]
 
+    def __str__(self) -> str:
+        return f'{self.room_number} | {self.office} | {self.tenant_company}'
+
 
 class TenantCompany(models.Model):
     isdisabled = models.BooleanField(default=False)
@@ -120,12 +132,18 @@ class TenantCompany(models.Model):
                 name='tenant_company_price_per_operator_range'),
         )
 
+    def __str__(self) -> str:
+        return f'{self.title}'
+
 
 class TenantCompanyPhoneNumber(models.Model):
     phone_number = models.CharField(max_length=100, unique=True, null=True)
     tenant_company = models.ForeignKey(
         'call_center_project.TenantCompany', models.CASCADE, related_name='tenant_company_phone_numbers')
     description = models.TextField(blank=True)
+
+    def __str__(self) -> str:
+        return f"{self.tenant_company} | {self.phone_number}"
 
 
 class CallerPerson(models.Model):
@@ -135,6 +153,9 @@ class CallerPerson(models.Model):
     gender = models.CharField(
         max_length=100, choices=GenderType.choices, default=GenderType.Unknown)
     email = models.EmailField(blank=True, null=True, default=None)
+
+    def __str__(self) -> str:
+        return f'{self.first_name} {self.last_name} | {self.phone_number}'
 
 
 class User(AbstractUser):
@@ -148,6 +169,25 @@ class User(AbstractUser):
         max_length=100, null=True, blank=True)
     tenant_company = models.ForeignKey(
         'call_center_project.TenantCompany', models.SET_NULL, related_name='users', null=True, blank=True)
+
+    def __str__(self) -> str:
+        return f'{self.type} | {self.username}'
+
+    @property
+    def is_unactive(self):
+        return self.type == AccountType.Unactive.value
+
+    @property
+    def is_admin(self):
+        return self.type == AccountType.Admin.value
+
+    @property
+    def is_operator(self):
+        return self.type == AccountType.Operator.value
+
+    @property
+    def is_tenant_company_owner(self):
+        return self.type == AccountType.TenantCompanyOwner.value
 
 
 class OperatorToWorkPlace(models.Model):
