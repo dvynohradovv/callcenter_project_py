@@ -7,14 +7,6 @@
 <link href="{% static 'workflow/css/base.css' %}" rel="stylesheet">
 {% endblock %}
 {% block main %}
-<div class="chartjs-size-monitor">
-    <div class="chartjs-size-monitor-expand">
-        <div class=""></div>
-    </div>
-    <div class="chartjs-size-monitor-shrink">
-        <div class=""></div>
-    </div>
-</div>
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
     <h1 class="h2">Call-logs dashboard</h1>
     <div class="btn-toolbar mb-2 mb-md-0">
@@ -33,11 +25,15 @@
             </svg>
             This week
         </button>
-
     </div>
 </div>
-<h3>Current call-logs</h3>
-<div class="table-responsive">
+<div class="card">
+    <div class="card-body">
+        <i class="bi bi-file-bar-graph"></i>
+        There is <mark>{{count}}</mark> call-logs
+    </div>
+</div>
+<div class="table-responsive pt-3">
     <table class="table align-middle table-hover">
         <thead class="table-dark">
             <tr class="text-nowrap">
@@ -46,7 +42,7 @@
                 <th>Duration</th>
                 <th>Caller person</th>
                 <th>Caller person message</th>
-                <th>Tenant Company</th>
+                <th>Destination</th>
                 <th>Operator</th>
                 <th>Operator message</th>
                 <th class="text-wrap">Disconnect initiator / Response</th>
@@ -63,14 +59,15 @@
                 <td>{{call_log.duration}} seconds</td>
                 <td class="table-light">{{call_log.caller_person}}</td>
                 <td>{{call_log.caller_person_message}}</td>
-                <td class="table-light">{{call_log.tenant_company_phone_number}}</td>
-                <td>{{call_log.operator}}</td>
+                <td class="table-light">{{call_log.tenant_company_phone_number.phone_number}}</td>
+                <td>{{call_log.operator.username}}, {{call_log.operator.first_name}} {{call_log.operator.last_name}}
+                </td>
                 <td>{{call_log.operator_message}}</td>
                 <td>{{call_log.disconnect_initiator}} / {{call_log.response}}</td>
                 <td>${{call_log.paid}} USD</td>
                 <td>{{call_log.address}}</td>
                 <td>
-                    <a class="btn btn-outline-dark" href="{% url 'workflow.call_logs' %}/{{call_log.id}}"
+                    <a class="btn btn-outline-dark" href="{% url 'workflow.call_logs.update' call_log.id %}"
                         role="button">Edit</a>
                 </td>
             </tr>

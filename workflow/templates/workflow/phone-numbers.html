@@ -36,7 +36,12 @@
 
     </div>
 </div>
-<h3>Current call-logs</h3>
+<div class="card">
+    <div class="card-body">
+        <i class="bi bi-file-bar-graph"></i>
+        There is <mark>{{count}}</mark> phone-numbers
+    </div>
+</div>
 <div class="table-responsive">
     <table class="table align-middle table-hover">
         <thead class="table-dark">
@@ -44,6 +49,7 @@
                 <th>#</th>
                 <th>Phone number</th>
                 <th>Description</th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
@@ -52,6 +58,19 @@
                 <th class="table-dark" scope="row">{{tc_phone_number.id}}</th>
                 <td>{{tc_phone_number.phone_number}}</td>
                 <td>{{tc_phone_number.description}}</td>
+                <td>
+                    {% if tc_phone_number.isdisabled %}
+                    <form action="{% url 'workflow.phone-numbers.activate' tc_phone_number.id %}" method="post">
+                        {% csrf_token %}
+                        <button class="btn btn-outline-success" type="submit">Activate</button>
+                    </form>
+                    {% else %}
+                    <form action="{% url 'workflow.phone-numbers.disable' tc_phone_number.id %}" method="post">
+                        {% csrf_token %}
+                        <button class="btn btn-outline-danger" type="submit">Disable</button>
+                    </form>
+                    {% endif %}
+                </td>
             </tr>
             {% endfor %}
 

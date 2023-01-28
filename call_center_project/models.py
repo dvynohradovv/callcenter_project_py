@@ -4,37 +4,37 @@ from django.db.models import CheckConstraint, Q
 
 
 class GenderType(models.TextChoices):
-    Unknown = 'Unknown'
-    Other = 'Other'
-    Male = 'Male'
-    Female = 'Female'
+    Unknown = "Unknown"
+    Other = "Other"
+    Male = "Male"
+    Female = "Female"
 
 
 class AccountType(models.TextChoices):
-    Unactive = 'Unactive'
-    Admin = 'Admin'
-    Operator = 'Operator'
-    TenantCompanyOwner = 'Tenant_Company_Owner'
+    Unactive = "Unactive"
+    Admin = "Admin"
+    Operator = "Operator"
+    TenantCompanyOwner = "Tenant_Company_Owner"
 
 
 class CategoryType(models.TextChoices):
-    Unknown = 'Unknown'
-    Other = 'Other'
-    Production = 'Production'
-    Commerce = 'Commerce'
-    ServiceIndustry = 'Service_Industry'
+    Unknown = "Unknown"
+    Other = "Other"
+    Production = "Production"
+    Commerce = "Commerce"
+    ServiceIndustry = "Service_Industry"
 
 
 class DisconnectInitiatorType(models.TextChoices):
-    Origination = 'Origination'
-    Operator = 'Destination'
+    Origination = "Origination"
+    Operator = "Destination"
 
 
 class ResponseType(models.TextChoices):
-    Forbidden = 'Forbidden'
-    BusyHere = 'BusyHere'
-    RequestTerminated = 'Request_Terminated'
-    OK = 'OK'
+    Forbidden = "Forbidden"
+    BusyHere = "BusyHere"
+    RequestTerminated = "Request_Terminated"
+    OK = "OK"
 
 
 class Address(models.Model):
@@ -47,81 +47,96 @@ class Address(models.Model):
     additional_info = models.CharField(max_length=200, blank=True)
 
     def __str__(self):
-        return f"{self.street}, {self.city}, {self.state} {self.zip_code}, {self.country}"
+        return (
+            f"{self.street}, {self.city}, {self.state} {self.zip_code}, {self.country}"
+        )
 
 
 class Office(models.Model):
     address = models.ForeignKey(
-        'call_center_project.Address', models.SET_NULL, related_name='offices', null=True, blank=True)
+        "call_center_project.Address",
+        models.SET_NULL,
+        related_name="offices",
+        null=True,
+        blank=True,
+    )
     title = models.CharField(max_length=100)
 
     class Meta:
         constraints = [
-            models.UniqueConstraint(
-                fields=[
-                    'address', 'title'
-                ],
-                name='unique_office')
+            models.UniqueConstraint(fields=["address", "title"], name="unique_office")
         ]
 
     def __str__(self) -> str:
-        return f'{self.title} | {self.address}'
+        return f"{self.title} | {self.address}"
 
 
 class Software(models.Model):
     title = models.CharField(max_length=100, unique=True)
 
     def __str__(self) -> str:
-        return f'{self.title}'
+        return f"{self.title}"
 
 
 class SoftwareVersion(models.Model):
     version = models.CharField(max_length=100)
-    software = models.ForeignKey('call_center_project.Software',
-                                 on_delete=models.CASCADE, related_name='software_versions')
+    software = models.ForeignKey(
+        "call_center_project.Software",
+        on_delete=models.CASCADE,
+        related_name="software_versions",
+    )
 
     class Meta:
         constraints = [
             models.UniqueConstraint(
-                fields=[
-                    'version', 'software'
-                ],
-                name='unique_software_version')
+                fields=["version", "software"], name="unique_software_version"
+            )
         ]
 
     def __str__(self) -> str:
-        return f'{self.version} | {self.software}'
+        return f"{self.version} | {self.software}"
 
 
 class WorkPlace(models.Model):
     room_number = models.CharField(max_length=100)
     office = models.ForeignKey(
-        'call_center_project.Office', models.CASCADE, related_name='work_places')
+        "call_center_project.Office", models.CASCADE, related_name="work_places"
+    )
     software_version = models.ForeignKey(
-        'call_center_project.SoftwareVersion', models.SET_NULL, related_name='work_places', null=True, blank=True)
+        "call_center_project.SoftwareVersion",
+        models.SET_NULL,
+        related_name="work_places",
+        null=True,
+        blank=True,
+    )
     tenant_company = models.ForeignKey(
-        'call_center_project.TenantCompany', models.SET_NULL, related_name='work_places', null=True, blank=True)
+        "call_center_project.TenantCompany",
+        models.SET_NULL,
+        related_name="work_places",
+        null=True,
+        blank=True,
+    )
     operators = models.ManyToManyField(
-        'call_center_project.User', through='OperatorToWorkPlace')
+        "call_center_project.User", through="OperatorToWorkPlace"
+    )
 
     class Meta:
         constraints = [
             models.UniqueConstraint(
-                fields=[
-                    'room_number', 'office'
-                ],
-                name='unique_work_place')
+                fields=["room_number", "office"], name="unique_work_place"
+            )
         ]
 
     def __str__(self) -> str:
-        return f'{self.room_number} | {self.office} | {self.tenant_company}'
+        return f"{self.room_number} | {self.office} | {self.tenant_company}"
 
 
 class TenantCompany(models.Model):
     isdisabled = models.BooleanField(default=False)
     title = models.CharField(max_length=100, unique=True)
     category = models.CharField(
-        max_length=100, choices=CategoryType.choices, default=CategoryType.Unknown)
+        max_length=100, choices=CategoryType.choices, default=CategoryType.Unknown
+    )
     price_per_operator = models.FloatField(blank=True)
 
     class Meta:
@@ -129,18 +144,23 @@ class TenantCompany(models.Model):
             # for checking in the DB
             CheckConstraint(
                 check=Q(price_per_operator__gte=0.0),
-                name='tenant_company_price_per_operator_range'),
+                name="tenant_company_price_per_operator_range",
+            ),
         )
 
     def __str__(self) -> str:
-        return f'{self.title}'
+        return f"{self.title}"
 
 
 class TenantCompanyPhoneNumber(models.Model):
     phone_number = models.CharField(max_length=100, unique=True, null=True)
     tenant_company = models.ForeignKey(
-        'call_center_project.TenantCompany', models.CASCADE, related_name='tenant_company_phone_numbers')
+        "call_center_project.TenantCompany",
+        models.CASCADE,
+        related_name="tenant_company_phone_numbers",
+    )
     description = models.TextField(blank=True)
+    isdisabled = models.BooleanField(default=False)
 
     def __str__(self) -> str:
         return f"{self.tenant_company} | {self.phone_number}"
@@ -151,27 +171,34 @@ class CallerPerson(models.Model):
     last_name = models.CharField(max_length=100, blank=True)
     phone_number = models.CharField(max_length=100, unique=True)
     gender = models.CharField(
-        max_length=100, choices=GenderType.choices, default=GenderType.Unknown)
+        max_length=100, choices=GenderType.choices, default=GenderType.Unknown
+    )
     email = models.EmailField(blank=True, null=True, default=None)
 
     def __str__(self) -> str:
-        return f'{self.first_name} {self.last_name} | {self.phone_number}'
+        return f"{self.first_name} {self.last_name} | {self.phone_number}"
 
 
 class User(AbstractUser):
     type = models.CharField(
-        max_length=100, choices=AccountType.choices, default=AccountType.Unactive)
+        max_length=100, choices=AccountType.choices, default=AccountType.Unactive
+    )
     isdisabled = models.BooleanField(default=False)
     email = models.EmailField(unique=True)
     gender = models.CharField(
-        max_length=100, choices=GenderType.choices, default=GenderType.Unknown)
-    phone_number = models.CharField(
-        max_length=100, null=True, blank=True)
+        max_length=100, choices=GenderType.choices, default=GenderType.Unknown
+    )
+    phone_number = models.CharField(max_length=100, null=True, blank=True)
     tenant_company = models.ForeignKey(
-        'call_center_project.TenantCompany', models.SET_NULL, related_name='users', null=True, blank=True)
+        "call_center_project.TenantCompany",
+        models.SET_NULL,
+        related_name="users",
+        null=True,
+        blank=True,
+    )
 
     def __str__(self) -> str:
-        return f'{self.type} | {self.username}'
+        return f"{self.type} | {self.username}"
 
     @property
     def is_unactive(self):
@@ -191,34 +218,41 @@ class User(AbstractUser):
 
 
 class OperatorToWorkPlace(models.Model):
-    operator = models.ForeignKey(
-        'call_center_project.User', models.CASCADE)
-    work_place = models.ForeignKey(
-        'call_center_project.WorkPlace', models.CASCADE)
+    operator = models.ForeignKey("call_center_project.User", models.CASCADE)
+    work_place = models.ForeignKey("call_center_project.WorkPlace", models.CASCADE)
 
 
 class CallLog(models.Model):
     start_time = models.DateTimeField(auto_now_add=True)
     duration = models.PositiveSmallIntegerField()
     caller_person = models.ForeignKey(
-        'call_center_project.CallerPerson', models.CASCADE, related_name='call_logs')
+        "call_center_project.CallerPerson", models.CASCADE, related_name="call_logs"
+    )
     caller_person_message = models.TextField(blank=True)
     tenant_company_phone_number = models.ForeignKey(
-        'call_center_project.TenantCompanyPhoneNumber', models.CASCADE, related_name='call_logs')
+        "call_center_project.TenantCompanyPhoneNumber",
+        models.CASCADE,
+        related_name="call_logs",
+    )
     operator = models.ForeignKey(
-        'call_center_project.User', models.SET_NULL, related_name='call_logs', null=True)
+        "call_center_project.User", models.SET_NULL, related_name="call_logs", null=True
+    )
     operator_message = models.TextField(blank=True)
     disconnect_initiator = models.CharField(
-        max_length=100, choices=DisconnectInitiatorType.choices)
+        max_length=100, choices=DisconnectInitiatorType.choices
+    )
     response = models.CharField(max_length=100, choices=ResponseType.choices)
     paid = models.FloatField()
     address = models.ForeignKey(
-        'call_center_project.Address', models.SET_NULL, related_name='call_logs', null=True, blank=True)
+        "call_center_project.Address",
+        models.SET_NULL,
+        related_name="call_logs",
+        null=True,
+        blank=True,
+    )
 
     class Meta:
         constraints = (
             # for checking in the DB
-            CheckConstraint(
-                check=Q(paid__gte=0.0),
-                name='call_log_paid_range'),
+            CheckConstraint(check=Q(paid__gte=0.0), name="call_log_paid_range"),
         )
