@@ -31,8 +31,8 @@ SECRET_KEY = secret_key
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
-
+# ALLOWED_HOSTS = ['a3c6-213-109-224-190.eu.ngrok.io']
+# CSRF_TRUSTED_ORIGINS = ['https://a3c6-213-109-224-190.eu.ngrok.io']
 
 # Application definition
 

@@ -18,7 +18,7 @@ class CallLogService:
 
     def get_conditions(self, user: User):
         if user.is_operator:
-            conditions = [Q(operator=user)]
+            conditions = [Q(operator=user), Q(user.isdisabled is False)]
         else:
             conditions = [
                 Q(tenant_company_phone_number__tenant_company=user.tenant_company),

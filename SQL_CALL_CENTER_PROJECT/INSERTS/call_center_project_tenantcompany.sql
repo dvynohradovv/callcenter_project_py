@@ -1,0 +1,10 @@
+insert into call_center_project_tenantcompany (id, isdisabled, title, category, price_per_operator) values (1, false, 'Quaxo', 'Unknown', 200);
+insert into call_center_project_tenantcompany (id, isdisabled, title, category, price_per_operator) values (2, false, 'Skinte', 'Unknown', 200);
+insert into call_center_project_tenantcompany (id, isdisabled, title, category, price_per_operator) values (3, false, 'Jogle', 'Production', 100);
+insert into call_center_project_tenantcompany (id, isdisabled, title, category, price_per_operator) values (4, false, 'Kare', 'Production', 400);
+insert into call_center_project_tenantcompany (id, isdisabled, title, category, price_per_operator) values (5, false, 'Miboo', 'Unknown', 100);
+insert into call_center_project_tenantcompany (id, isdisabled, title, category, price_per_operator) values (6, false, 'Cogidoo', 'Service_Industry', 300);
+insert into call_center_project_tenantcompany (id, isdisabled, title, category, price_per_operator) values (7, false, 'Divape', 'Unknown', 100);
+insert into call_center_project_tenantcompany (id, isdisabled, title, category, price_per_operator) values (8, false, 'Skipfire', 'Other', 300);
+insert into call_center_project_tenantcompany (id, isdisabled, title, category, price_per_operator) values (9, false, 'Yamia', 'Production', 400);
+insert into call_center_project_tenantcompany (id, isdisabled, title, category, price_per_operator) values (10, false, 'Yata', 'Other', 400);

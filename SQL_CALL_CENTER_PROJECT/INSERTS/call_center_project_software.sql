@@ -1,0 +1,10 @@
+insert into call_center_project_software (id, title) values (1, 'Daltfresh');
+insert into call_center_project_software (id, title) values (2, 'Kanlam');
+insert into call_center_project_software (id, title) values (3, 'Cardify');
+insert into call_center_project_software (id, title) values (4, 'Subin');
+insert into call_center_project_software (id, title) values (5, 'Voltsillam');
+insert into call_center_project_software (id, title) values (6, 'Konklux');
+insert into call_center_project_software (id, title) values (7, 'Joojle');
+insert into call_center_project_software (id, title) values (8, 'Konklab');
+insert into call_center_project_software (id, title) values (9, 'Flexidy');
+insert into call_center_project_software (id, title) values (10, 'Nadazon');
