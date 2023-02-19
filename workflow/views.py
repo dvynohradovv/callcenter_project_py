@@ -6,6 +6,7 @@ from django.urls import reverse_lazy
 from django.views import View
 from django.views.generic import TemplateView
 
+from call_center_project.mixins import UserTypeMixin
 from call_center_project.models import (
     AccountType,
     TenantCompanyPhoneNumber,
@@ -16,8 +17,9 @@ from workflow.forms import CallLogForm
 from workflow.services import CallLogService
 
 
-class WorkflowRedirectView(LoginRequiredMixin, View):
+class WorkflowRedirectView(LoginRequiredMixin, UserTypeMixin, View):
     login_url = "/accounts/login/"
+    user_types = []
 
     def get(self, request):
         if request.user.type == AccountType.Unactive:
@@ -28,12 +30,14 @@ class WorkflowRedirectView(LoginRequiredMixin, View):
             return HttpResponseRedirect(reverse_lazy("workflow.home"))
 
 
-class WorkflowUnactiveTemplateView(LoginRequiredMixin, TemplateView):
+class WorkflowUnactiveTemplateView(LoginRequiredMixin, UserTypeMixin, TemplateView):
     template_name = "workflow/unactive.html"
+    user_types = [AccountType.Unactive]
 
 
-class CallLogListView(LoginRequiredMixin, TemplateView):
+class CallLogListView(LoginRequiredMixin, UserTypeMixin, TemplateView):
     template_name = "workflow/call-logs.html"
+    user_types = [AccountType.TenantCompanyOwner, AccountType.Operator]
 
     def __init__(self) -> None:
         self.call_log_service = CallLogService()
@@ -47,8 +51,9 @@ class CallLogListView(LoginRequiredMixin, TemplateView):
         return render(request, self.template_name, data)
 
 
-class CallLogUpdateRetrieveView(LoginRequiredMixin, TemplateView):
+class CallLogUpdateRetrieveView(LoginRequiredMixin, UserTypeMixin, TemplateView):
     template_name = "workflow/call-logs-update.html"
+    user_types = [AccountType.TenantCompanyOwner, AccountType.Operator]
 
     def __init__(self) -> None:
         self.call_log_service = CallLogService()
@@ -74,8 +79,9 @@ class CallLogUpdateRetrieveView(LoginRequiredMixin, TemplateView):
         return render(request, self.template_name, data)
 
 
-class OperatorListView(LoginRequiredMixin, TemplateView):
+class OperatorListView(LoginRequiredMixin, UserTypeMixin, TemplateView):
     template_name = "workflow/operators.html"
+    user_types = [AccountType.TenantCompanyOwner]
 
     def get(self, request):
         user = request.user
@@ -88,7 +94,9 @@ class OperatorListView(LoginRequiredMixin, TemplateView):
         return render(request, self.template_name, data)
 
 
-class OperatorDisableView(LoginRequiredMixin, View):
+class OperatorDisableView(LoginRequiredMixin, UserTypeMixin, View):
+    user_types = [AccountType.TenantCompanyOwner]
+
     def post(self, request, operator_id):
         user = request.user
         operator = get_object_or_404(
@@ -104,7 +112,9 @@ class OperatorDisableView(LoginRequiredMixin, View):
         return HttpResponseRedirect(reverse_lazy("workflow.operators"))
 
 
-class OperatorActivateView(LoginRequiredMixin, View):
+class OperatorActivateView(LoginRequiredMixin, UserTypeMixin, View):
+    user_types = [AccountType.TenantCompanyOwner]
+
     def post(self, request, operator_id):
         user = request.user
         operator = get_object_or_404(
@@ -120,8 +130,9 @@ class OperatorActivateView(LoginRequiredMixin, View):
         return HttpResponseRedirect(reverse_lazy("workflow.operators"))
 
 
-class WorkPlaceListView(LoginRequiredMixin, TemplateView):
+class WorkPlaceListView(LoginRequiredMixin, UserTypeMixin, TemplateView):
     template_name = "workflow/work-places.html"
+    user_types = [AccountType.TenantCompanyOwner]
 
     def get(self, request):
         user = request.user
@@ -133,8 +144,9 @@ class WorkPlaceListView(LoginRequiredMixin, TemplateView):
         return render(request, self.template_name, data)
 
 
-class TenantCompanyPhoneNumberListView(LoginRequiredMixin, TemplateView):
+class TenantCompanyPhoneNumberListView(LoginRequiredMixin, UserTypeMixin, TemplateView):
     template_name = "workflow/phone-numbers.html"
+    user_types = [AccountType.TenantCompanyOwner]
 
     def get(self, request):
         user = request.user
@@ -146,7 +158,9 @@ class TenantCompanyPhoneNumberListView(LoginRequiredMixin, TemplateView):
         return render(request, self.template_name, data)
 
 
-class TenantCompanyPhoneNumberDisableView(LoginRequiredMixin, View):
+class TenantCompanyPhoneNumberDisableView(LoginRequiredMixin, UserTypeMixin, View):
+    user_types = [AccountType.TenantCompanyOwner]
+
     def post(self, request, phone_number_id):
         user = request.user
         tc_phone_number = get_object_or_404(
@@ -160,7 +174,9 @@ class TenantCompanyPhoneNumberDisableView(LoginRequiredMixin, View):
         return HttpResponseRedirect(reverse_lazy("workflow.phone_numbers"))
 
 
-class TenantCompanyPhoneNumberActivateView(LoginRequiredMixin, View):
+class TenantCompanyPhoneNumberActivateView(LoginRequiredMixin, UserTypeMixin, View):
+    user_types = [AccountType.TenantCompanyOwner]
+
     def post(self, request, phone_number_id):
         user = request.user
         tc_phone_number = get_object_or_404(

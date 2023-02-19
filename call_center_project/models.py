@@ -14,7 +14,7 @@ class AccountType(models.TextChoices):
     Unactive = "Unactive"
     Admin = "Admin"
     Operator = "Operator"
-    TenantCompanyOwner = "Tenant_Company_Owner"
+    TenantCompanyOwner = "TenantCompanyOwner"
 
 
 class CategoryType(models.TextChoices):

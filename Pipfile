@@ -9,6 +9,8 @@ django-crispy-forms = "*"
 sqlalchemy = "*"
 autopep8 = "*"
 psycopg2 = "*"
+djangorestframework = "*"
+crispy-bootstrap5 = "*"
 
 [dev-packages]
 
