@@ -37,6 +37,7 @@ class OperatorWorkPlaceUpdateForm(forms.ModelForm):
     current_work_place = forms.CharField(required=False)
     new_work_place = forms.ModelChoiceField(
         queryset=WorkPlace.objects.filter(Q(operators=None) & Q(tenant_company=None)),
+        required=False,
     )
 
     class Meta:

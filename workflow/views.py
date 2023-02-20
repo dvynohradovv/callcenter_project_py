@@ -113,10 +113,7 @@ class OperatorWorkPlaceEdit(LoginRequiredMixin, UserTypeMixin, View):
         )
 
         work_place = operator.work_place.first()
-        if operator.work_place.first():
-            current_work_place = str(work_place)
-        else:
-            current_work_place = "None"
+        current_work_place = str(work_place) if operator.work_place.first() else "None"
 
         form = OperatorWorkPlaceUpdateForm(
             instance=operator, initial={"current_work_place": current_work_place}
@@ -137,26 +134,24 @@ class OperatorWorkPlaceEdit(LoginRequiredMixin, UserTypeMixin, View):
 
         form = OperatorWorkPlaceUpdateForm(request.POST, instance=operator)
         if form.is_valid():
-            if form.cleaned_data.get("new_work_place"):
-                new_work_place = get_object_or_404(
-                    WorkPlace,
-                    Q(id=form.cleaned_data["new_work_place"].id)
-                    & Q(operators=None)
-                    & Q(tenant_company=None),
-                )
-                work_place.tenant_company = user.tenant_company
-                work_place.save()
-
-            operator_to_work_place = OperatorToWorkPlace.objects.filter(
-                Q(operator=operator) & Q(tenant_company=user.tenant_company)
-            ).first()
-
-            if operator_to_work_place:
-                old_work_place = operator_to_work_place.work_place
+            old_work_place = operator.work_place.first()
+            if old_work_place:
                 old_work_place.tenant_company = None
+                old_work_place.save()
+                operator.work_place.remove(old_work_place)
 
-        data = {"form": form}
-        return render(request, self.template_name, data)
+            if form.cleaned_data.get("new_work_place"):
+                new_work_place = form.cleaned_data.get("new_work_place")
+                new_work_place.tenant_company = user.tenant_company
+                new_work_place.save()
+                operator.work_place.add(new_work_place)
+
+        return HttpResponseRedirect(
+            reverse_lazy(
+                "workflow.operators.work-place-edit",
+                kwargs={"operator_id": operator_id},
+            )
+        )
 
 
 class OperatorDisableView(LoginRequiredMixin, UserTypeMixin, View):
