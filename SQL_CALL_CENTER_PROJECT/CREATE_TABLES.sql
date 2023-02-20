@@ -57,7 +57,7 @@ CREATE TABLE call_center_project_tenantcompany (
     id BIGSERIAL PRIMARY KEY,
     isdisabled BOOLEAN DEFAULT false NULL,
     title VARCHAR(100) NOT NULL,
-    category BUSINESS_CATEGORY DEFAULT 'Unknown' NULL,
+    category VARCHAR(100) DEFAULT 'Unknown' NULL,
     price_per_operator REAL CHECK(price_per_operator > 0.0) NOT NULL,
     UNIQUE(title)
 );
@@ -81,7 +81,7 @@ CREATE TABLE call_center_project_callerperson (
     first_name VARCHAR(100) NULL,
     last_name VARCHAR(100) NULL,
     phone_number VARCHAR(100) NOT NULL,
-    gender GENDER DEFAULT 'Unknown' NULL,
+    gender VARCHAR(100) DEFAULT 'Unknown' NULL,
     email VARCHAR(100) NULL,
     UNIQUE(phone_number, email)
 );
@@ -100,7 +100,7 @@ CREATE TABLE call_center_project_user (
     is_active BOOLEAN NOT NULL,
     date_joined TIMESTAMP NOT NULL,
     type VARCHAR(100) NOT NULL,
-    isdisabled BOOLEAN NOT NULL,
+    isdisabled BOOLEAN NOT NULL, 1
     email VARCHAR(254) NOT NULL,
     gender VARCHAR(100) NOT NULL,
     phone_number VARCHAR(100),
@@ -130,8 +130,8 @@ CREATE TABLE call_center_project_calllog (
     tenant_company_phone_number_id BIGINT NOT NULL,
     operator_id BIGINT NULL,
     operator_message TEXT NULL,
-    disconnect_initiator DISCONNECT_INITIATOR NOT NULL,
-    response RESPONSE NOT NULL,
-    paid REAL CHECK(paid > 0.0) NOT NULL,
+    disconnect_initiator VARCHAR(100) NOT NULL,,
+    response VARCHAR(100) NOT NULL,
+    paid REAL NULL,
     address_id BIGINT NULL,
 );

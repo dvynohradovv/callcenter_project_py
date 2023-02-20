@@ -45,6 +45,7 @@
                 <th>Gender</th>
                 <th>Phone number</th>
                 <th>Last login</th>
+                <th>Work place</th>
                 <th></th>
             </tr>
         </thead>
@@ -58,6 +59,13 @@
                 <td>{{operator.gender}}</td>
                 <td>{{operator.phone_number}}</td>
                 <td>{{operator.last_login}}</td>
+                <td>
+                    {% if operator.work_place.first %}
+                    {{operator.work_place.first}}
+                    {% endif %}
+                    <a class="btn btn-outline-dark" href="{% url 'workflow.operators.work-place-edit' operator.id %}"
+                        role="button">Edit</a>
+                </td>
                 <td>
                     {% if operator.isdisabled %}
                     <form action="{% url 'workflow.operators.activate' operator.id %}" method="post">

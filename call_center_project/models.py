@@ -22,7 +22,7 @@ class CategoryType(models.TextChoices):
     Other = "Other"
     Production = "Production"
     Commerce = "Commerce"
-    ServiceIndustry = "Service_Industry"
+    ServiceIndustry = "ServiceIndustry"
 
 
 class DisconnectInitiatorType(models.TextChoices):
@@ -33,7 +33,7 @@ class DisconnectInitiatorType(models.TextChoices):
 class ResponseType(models.TextChoices):
     Forbidden = "Forbidden"
     BusyHere = "BusyHere"
-    RequestTerminated = "Request_Terminated"
+    RequestTerminated = "RequestTerminated"
     OK = "OK"
 
 
@@ -117,7 +117,9 @@ class WorkPlace(models.Model):
         blank=True,
     )
     operators = models.ManyToManyField(
-        "call_center_project.User", through="OperatorToWorkPlace"
+        "call_center_project.User",
+        related_name="work_place",
+        through="OperatorToWorkPlace",
     )
 
     class Meta:

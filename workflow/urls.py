@@ -7,7 +7,9 @@ from workflow.views import (
     OperatorActivateView,
     OperatorDisableView,
     OperatorListView,
+    OperatorWorkPlaceEdit,
     TenantCompanyPhoneNumberActivateView,
+    TenantCompanyPhoneNumberCreateView,
     TenantCompanyPhoneNumberDisableView,
     TenantCompanyPhoneNumberListView,
     WorkflowRedirectView,
@@ -32,6 +34,11 @@ urlpatterns = [
     # Operators
     path("operators", OperatorListView.as_view(), name="workflow.operators"),
     path(
+        "operators/<int:operator_id>/work-place-edit",
+        OperatorWorkPlaceEdit.as_view(),
+        name="workflow.operators.work-place-edit",
+    ),
+    path(
         "operators/<int:operator_id>/disable",
         OperatorDisableView.as_view(),
         name="workflow.operators.disable",
@@ -47,6 +54,11 @@ urlpatterns = [
         "phone-numbers",
         TenantCompanyPhoneNumberListView.as_view(),
         name="workflow.phone_numbers",
+    ),
+    path(
+        "phone-numbers/create",
+        TenantCompanyPhoneNumberCreateView.as_view(),
+        name="workflow.phone-numbers.create",
     ),
     path(
         "phone-numbers/<int:phone_number_id>/disable",

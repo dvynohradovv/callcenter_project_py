@@ -6,22 +6,23 @@ from call_center_project.models import CallLog, User
 
 class CallLogService:
     def find_all(self, user: User):
-        return CallLog.objects.filter(*self.get_conditions(user)).order_by(
-            "-start_time"
-        )
+        query = self.get_owner_query(user)
+
+        return CallLog.objects.filter(query).order_by("-start_time")
 
     def find_by_id(self, user: User, id: int):
-        conditions = self.get_conditions(user)
-        conditions.append(Q(id=id))
+        query = self.get_owner_query(user)
+        query &= Q(id=id)
 
-        return get_object_or_404(CallLog, *conditions)
+        return get_object_or_404(CallLog, query)
 
-    def get_conditions(self, user: User):
+    def get_owner_query(self, user: User):
+        query = Q()
+
         if user.is_operator:
-            conditions = [Q(operator=user), Q(user.isdisabled is False)]
-        else:
-            conditions = [
-                Q(tenant_company_phone_number__tenant_company=user.tenant_company),
-            ]
+            query &= Q(operator=user) & Q(operator__isdisabled=False)
 
-        return conditions
+        if user.is_tenant_company_owner:
+            query &= Q(tenant_company_phone_number__tenant_company=user.tenant_company)
+
+        return query

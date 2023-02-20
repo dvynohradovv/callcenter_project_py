@@ -9,11 +9,16 @@ from django.views.generic import TemplateView
 from call_center_project.mixins import UserTypeMixin
 from call_center_project.models import (
     AccountType,
+    OperatorToWorkPlace,
     TenantCompanyPhoneNumber,
     User,
     WorkPlace,
 )
-from workflow.forms import CallLogForm
+from workflow.forms import (
+    CallLogMessagesUpdateForm,
+    OperatorWorkPlaceUpdateForm,
+    TenantCompanyPhoneNumberCreateForm,
+)
 from workflow.services import CallLogService
 
 
@@ -62,7 +67,7 @@ class CallLogUpdateRetrieveView(LoginRequiredMixin, UserTypeMixin, TemplateView)
         user = request.user
         call_log = self.call_log_service.find_by_id(user, call_log_id)
 
-        form = CallLogForm(instance=call_log)
+        form = CallLogMessagesUpdateForm(instance=call_log)
 
         data = {"form": form}
         return render(request, self.template_name, data)
@@ -71,7 +76,7 @@ class CallLogUpdateRetrieveView(LoginRequiredMixin, UserTypeMixin, TemplateView)
     def post(self, request, call_log_id: int):
         user = request.user
         call_log = self.call_log_service.find_by_id(user, call_log_id)
-        form = CallLogForm(request.POST, instance=call_log)
+        form = CallLogMessagesUpdateForm(request.POST, instance=call_log)
         if form.is_valid():
             form.save()
 
@@ -91,6 +96,66 @@ class OperatorListView(LoginRequiredMixin, UserTypeMixin, TemplateView):
         )
 
         data = {"data": operators, "count": len(operators)}
+        return render(request, self.template_name, data)
+
+
+class OperatorWorkPlaceEdit(LoginRequiredMixin, UserTypeMixin, View):
+    user_types = [AccountType.TenantCompanyOwner]
+    template_name = "workflow/operators-work-place-edit.html"
+
+    def get(self, request, operator_id: int):
+        user = request.user
+        operator = get_object_or_404(
+            User,
+            Q(id=operator_id)
+            & Q(tenant_company__id=user.tenant_company.id)
+            & Q(type=AccountType.Operator.value),
+        )
+
+        work_place = operator.work_place.first()
+        if operator.work_place.first():
+            current_work_place = str(work_place)
+        else:
+            current_work_place = "None"
+
+        form = OperatorWorkPlaceUpdateForm(
+            instance=operator, initial={"current_work_place": current_work_place}
+        )
+
+        data = {"form": form}
+        return render(request, self.template_name, data)
+
+    # But this is put method
+    def post(self, request, operator_id: int):
+        user = request.user
+        operator = get_object_or_404(
+            User,
+            Q(id=operator_id)
+            & Q(tenant_company__id=user.tenant_company.id)
+            & Q(type=AccountType.Operator.value),
+        )
+
+        form = OperatorWorkPlaceUpdateForm(request.POST, instance=operator)
+        if form.is_valid():
+            if form.cleaned_data.get("new_work_place"):
+                new_work_place = get_object_or_404(
+                    WorkPlace,
+                    Q(id=form.cleaned_data["new_work_place"].id)
+                    & Q(operators=None)
+                    & Q(tenant_company=None),
+                )
+                work_place.tenant_company = user.tenant_company
+                work_place.save()
+
+            operator_to_work_place = OperatorToWorkPlace.objects.filter(
+                Q(operator=operator) & Q(tenant_company=user.tenant_company)
+            ).first()
+
+            if operator_to_work_place:
+                old_work_place = operator_to_work_place.work_place
+                old_work_place.tenant_company = None
+
+        data = {"form": form}
         return render(request, self.template_name, data)
 
 
@@ -156,6 +221,35 @@ class TenantCompanyPhoneNumberListView(LoginRequiredMixin, UserTypeMixin, Templa
 
         data = {"data": tc_phone_numbers, "count": len(tc_phone_numbers)}
         return render(request, self.template_name, data)
+
+
+class TenantCompanyPhoneNumberCreateView(
+    LoginRequiredMixin, UserTypeMixin, TemplateView
+):
+    template_name = "workflow/phone-numbers-create.html"
+    user_types = [AccountType.TenantCompanyOwner]
+
+    def get(self, request):
+        user = request.user
+        form = TenantCompanyPhoneNumberCreateForm()
+
+        data = {"form": form}
+        return render(request, self.template_name, data)
+
+    # But this is put method
+    def post(self, request):
+        user = request.user
+
+        form = TenantCompanyPhoneNumberCreateForm(request.POST)
+        if form.is_valid():
+            tc_phone_number = TenantCompanyPhoneNumber(
+                phone_number=form.cleaned_data["phone_number"],
+                description=form.cleaned_data["description"],
+                tenant_company=user.tenant_company,
+            )
+            tc_phone_number.save()
+
+        return HttpResponseRedirect(reverse_lazy("workflow.phone_numbers"))
 
 
 class TenantCompanyPhoneNumberDisableView(LoginRequiredMixin, UserTypeMixin, View):
