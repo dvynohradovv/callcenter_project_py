@@ -1,4 +1,5 @@
 from django import forms
+from django.core.validators import RegexValidator
 from django.db.models import Q
 
 from call_center_project.models import (
@@ -45,9 +46,22 @@ class OperatorWorkPlaceUpdateForm(forms.ModelForm):
         fields = ("username", "first_name", "last_name")
 
 
+class PhoneNumberField(forms.CharField):
+    phone_regex = RegexValidator(
+        regex=r"^\d{3}-\d{3}-\d{4}$",
+        message="Phone number must be entered in the format: '000-000-0000'. Up to 12 digits allowed.",
+    )
+
+    def __init__(self, *args, **kwargs):
+        kwargs.setdefault("validators", []).append(self.phone_regex)
+        super().__init__(*args, **kwargs)
+
+
 class TenantCompanyPhoneNumberCreateForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(TenantCompanyPhoneNumberCreateForm, self).__init__(*args, **kwargs)
+
+    phone_number = PhoneNumberField()
 
     class Meta:
         model = TenantCompanyPhoneNumber

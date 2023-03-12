@@ -12,48 +12,106 @@
         class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
         <h1 class="h2">Hello, {{user.tenant_company.title}}!</h1>
     </div>
-    <div class="col-lg-8 pt-3 pb-2 mb-3">
-        <div class="row">
-            <div class="col-xxl-4 col-md-6">
-                <div class="card info-card sales-card">
+    {% if user.is_tenant_company_owner %}
+    <div class="col-lg-8 pt-4 pb-2 mb-3">
+        <div class="row row-cols-1 row-cols-md-3 g-4">
+            <div class="col">
+                <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title">Sales <span>| Today</span></h5>
+                        <h5 class="card-title">Total duration of calls | Per Day</h5>
                         <div class="d-flex align-items-center">
-                            <div class="card-icon rounded-circle d-flex align-items-center justify-content-center"> <i
-                                    class="bi bi-cart"></i></div>
+                            <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                <i class="bi bi-hourglass-split"></i>
+                            </div>
                             <div class="ps-3">
-                                <h6>145</h6> <span class="text-success small pt-1 fw-bold">12%</span> <span
-                                    class="text-muted small pt-2 ps-1">increase</span>
+                                <h6>{{sum_duration_day}}</h6> <span
+                                    class="text-success small pt-1 fw-bold">{{sum_duration_day_rnd}}%</span>
+                                <span class="text-muted small pt-2 ps-1">increase</span>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="col-xxl-4 col-md-6">
-                <div class="card info-card revenue-card">
+            <div class="col">
+                <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title">Revenue <span>| This Month</span></h5>
+                        <h5 class="card-title">Total duration of calls | Per Month</h5>
                         <div class="d-flex align-items-center">
-                            <div class="card-icon rounded-circle d-flex align-items-center justify-content-center"> <i
-                                    class="bi bi-currency-dollar"></i></div>
+                            <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                <i class="bi bi-hourglass-split"></i>
+                            </div>
                             <div class="ps-3">
-                                <h6>$3,264</h6> <span class="text-success small pt-1 fw-bold">8%</span> <span
-                                    class="text-muted small pt-2 ps-1">increase</span>
+                                <h6>{{sum_duration_month}}</h6> <span
+                                    class="text-success small pt-1 fw-bold">{{sum_duration_month_rnd}}%</span>
+                                <span class="text-muted small pt-2 ps-1">increase</span>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="col-xxl-4 col-xl-12">
-                <div class="card info-card customers-card">
+            <div class="col">
+                <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title">Customers <span>| This Year</span></h5>
+                        <h5 class="card-title">Total duration of calls | Per Year</h5>
                         <div class="d-flex align-items-center">
-                            <div class="card-icon rounded-circle d-flex align-items-center justify-content-center"> <i
-                                    class="bi bi-people"></i></div>
+                            <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                <i class="bi bi-hourglass-split"></i>
+                            </div>
                             <div class="ps-3">
-                                <h6>1244</h6> <span class="text-danger small pt-1 fw-bold">12%</span> <span
-                                    class="text-muted small pt-2 ps-1">decrease</span>
+                                <h6>{{sum_duration_year}}</h6> <span
+                                    class="text-success small pt-1 fw-bold">{{sum_duration_year_rnd}}%</span>
+                                <span class="text-muted small pt-2 ps-1">increase</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Average cost of calls | Per Day</h5>
+                        <div class="d-flex align-items-center">
+                            <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                <i class="bi bi-currency-dollar"></i>
+                            </div>
+                            <div class="ps-3">
+                                <h6>{{avg_cost_day}}</h6> <span
+                                    class="text-success small pt-1 fw-bold">{{avg_cost_day_rnd}}%</span>
+                                <span class="text-muted small pt-2 ps-1">increase</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Average cost of calls | Per Month</h5>
+                        <div class="d-flex align-items-center">
+                            <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                <i class="bi bi-currency-dollar"></i>
+                            </div>
+                            <div class="ps-3">
+                                <h6>{{avg_cost_month}}</h6> <span
+                                    class="text-success small pt-1 fw-bold">{{avg_cost_month_rnd}}%</span>
+                                <span class="text-muted small pt-2 ps-1">increase</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Average cost of calls | Per Year</h5>
+                        <div class="d-flex align-items-center">
+                            <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                <i class="bi bi-currency-dollar"></i>
+                            </div>
+                            <div class="ps-3">
+                                <h6>{{avg_cost_year}}</h6> <span
+                                    class="text-success small pt-1 fw-bold">{{avg_cost_year_rnd}}%</span>
+                                <span class="text-muted small pt-2 ps-1">increase</span>
                             </div>
                         </div>
                     </div>
@@ -61,6 +119,6 @@
             </div>
         </div>
     </div>
+    {% endif %}
 </div>
-
 {% endblock %}

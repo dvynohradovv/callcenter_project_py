@@ -4,6 +4,7 @@ from django.views.generic import TemplateView
 from workflow.views import (
     CallLogListView,
     CallLogUpdateRetrieveView,
+    HomeTemplateView,
     OperatorActivateView,
     OperatorDisableView,
     OperatorListView,
@@ -22,7 +23,7 @@ urlpatterns = [
     path("unactive", WorkflowUnactiveTemplateView.as_view(), name="workflow.unactive"),
     path(
         "home",
-        TemplateView.as_view(template_name="workflow/home.html"),
+        HomeTemplateView.as_view(),
         name="workflow.home",
     ),
     path("call-logs", CallLogListView.as_view(), name="workflow.call_logs"),

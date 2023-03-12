@@ -1,3 +1,4 @@
+from random import randint
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Q
 from django.http import HttpResponseRedirect
@@ -21,6 +22,8 @@ from workflow.forms import (
 )
 from workflow.services import CallLogService
 
+DAYS = ["day", "month", "year"]
+
 
 class WorkflowRedirectView(LoginRequiredMixin, UserTypeMixin, View):
     login_url = "/accounts/login/"
@@ -38,6 +41,20 @@ class WorkflowRedirectView(LoginRequiredMixin, UserTypeMixin, View):
 class WorkflowUnactiveTemplateView(LoginRequiredMixin, UserTypeMixin, TemplateView):
     template_name = "workflow/unactive.html"
     user_types = [AccountType.Unactive]
+
+
+class HomeTemplateView(LoginRequiredMixin, UserTypeMixin, TemplateView):
+    template_name = "workflow/home.html"
+    user_types = [AccountType.TenantCompanyOwner, AccountType.Operator]
+
+    def get(self, request):
+        data = {}
+        for attr in ["sum_duration", "avg_cost"]:
+            for d in DAYS:
+                data[f"{attr}_{d}"] = randint(0, 1000)
+                data[f"{attr}_{d}_rnd"] = randint(0, 100)
+
+        return render(request, self.template_name, data)
 
 
 class CallLogListView(LoginRequiredMixin, UserTypeMixin, TemplateView):
@@ -236,7 +253,9 @@ class TenantCompanyPhoneNumberCreateView(
         user = request.user
 
         form = TenantCompanyPhoneNumberCreateForm(request.POST)
+        print("form invalid")
         if form.is_valid():
+            print("form valid")
             tc_phone_number = TenantCompanyPhoneNumber(
                 phone_number=form.cleaned_data["phone_number"],
                 description=form.cleaned_data["description"],
@@ -244,7 +263,8 @@ class TenantCompanyPhoneNumberCreateView(
             )
             tc_phone_number.save()
 
-        return HttpResponseRedirect(reverse_lazy("workflow.phone_numbers"))
+        data = {"form": form}
+        return render(request, self.template_name, data)
 
 
 class TenantCompanyPhoneNumberDisableView(LoginRequiredMixin, UserTypeMixin, View):
