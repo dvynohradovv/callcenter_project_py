@@ -24,7 +24,7 @@ values
         222,
         null,
         'Origination',
-        'Request Terminated',
+        'RequestTerminated',
         null,
         null
     );

@@ -1,25 +1,25 @@
 -- 3.Создать триггер, который запрещает приписывать оператору рабочее место, не принадлежащее компании, в которой работает этот оператор.
 CREATE
-OR REPLACE FUNCTION work_place_owner_check() RETURNS TRIGGER AS $ $ DECLARE wp_company_id BIGINT;
+OR REPLACE FUNCTION work_place_owner_check() RETURNS TRIGGER AS $$ DECLARE wp_company_id BIGINT;
 
 op_company_id BIGINT;
 
 BEGIN
 SELECT
-    work_place.tenant_company_id INTO wp_company_id
+    tenant_company_id INTO wp_company_id
 FROM
-    work_place
+    call_center_project_work_place
 WHERE
-    work_place.id = NEW.work_place_id
+    id = NEW.work_place_id
 LIMIT
     1;
 
 SELECT
-    user.tenant_company_id INTO op_company_id
+    tenant_company_id INTO op_company_id
 FROM
-    user
+    call_center_project_user
 WHERE
-    user.id = NEW.operator_id
+    id = NEW.operator_id
 LIMIT
     1;
 
@@ -31,7 +31,7 @@ RETURN NEW;
 
 END;
 
-$ $ LANGUAGE plpgsql;
+$$ LANGUAGE plpgsql;
 
 CREATE
 OR REPLACE TRIGGER operator_to_work_place_work_place_owner_check BEFORE

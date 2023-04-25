@@ -256,14 +256,14 @@ class TenantCompanyPhoneNumberCreateView(
         print("form invalid")
         if form.is_valid():
             print("form valid")
-            tc_phone_number = TenantCompanyPhoneNumber(
+            tc_phone_number, created = TenantCompanyPhoneNumber.objects.get_or_create(
                 phone_number=form.cleaned_data["phone_number"],
                 description=form.cleaned_data["description"],
                 tenant_company=user.tenant_company,
             )
-            tc_phone_number.save()
 
         data = {"form": form}
+
         return render(request, self.template_name, data)
 
 

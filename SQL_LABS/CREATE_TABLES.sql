@@ -10,8 +10,8 @@ DROP TYPE IF EXISTS RESPONSE CASCADE;
 
 create type RESPONSE as enum (
     'Forbidden',
-    'Busy Here',
-    'Request Terminated',
+    'BusyHere',
+    'RequestTerminated',
     'OK'
 );
 
