@@ -1,4 +1,5 @@
 from random import randint
+
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Q
 from django.http import HttpResponseRedirect
@@ -10,7 +11,6 @@ from django.views.generic import TemplateView
 from call_center_project.mixins import UserTypeMixin
 from call_center_project.models import (
     AccountType,
-    OperatorToWorkPlace,
     TenantCompanyPhoneNumber,
     User,
     WorkPlace,
@@ -49,6 +49,7 @@ class HomeTemplateView(LoginRequiredMixin, UserTypeMixin, TemplateView):
 
     def get(self, request):
         data = {}
+
         for attr in ["sum_duration", "avg_cost"]:
             for d in DAYS:
                 data[f"{attr}_{d}"] = randint(0, 1000)

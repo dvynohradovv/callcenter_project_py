@@ -8,7 +8,7 @@ BEGIN
 SELECT
     tenant_company_id INTO wp_company_id
 FROM
-    call_center_project_work_place
+    call_center_project_workplace
 WHERE
     id = NEW.work_place_id
 LIMIT

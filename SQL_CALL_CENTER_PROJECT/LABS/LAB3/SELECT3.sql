@@ -5,7 +5,7 @@ FROM
     call_center_project_user AS op
     LEFT JOIN call_center_project_calllog AS cl ON cl.operator_id = op.id
 WHERE
-    op.type = 'operator'
+    op.type = 'Operator'
     AND op.tenant_company_id = '${tenant_company_id}'
     AND cl.start_time >= '${start_time}'
     AND cl.start_time <= '${start_time}';
